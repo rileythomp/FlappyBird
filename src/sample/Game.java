@@ -75,8 +75,11 @@ public class Game {
                     bird.setY(0);
                     vy = 0;
                 }
-                else if (bird.getY() + 25 + vy > SCREEN_HEIGHT) {
-                    bird.setY(SCREEN_HEIGHT - 25);
+                else if (bird.getY() > SCREEN_HEIGHT) {
+//                    bird.setY(SCREEN_HEIGHT - 25);
+                    // should be a loss
+                    this.stop();
+                    endGame();
                 }
                 else  {
                     bird.setY(bird.getY() + vy);
@@ -171,9 +174,11 @@ public class Game {
 
     private void addPipe() {
         int totalPipe = 500;
+        int maxPipe = 450;
+        int minPipe = totalPipe - maxPipe;
         int pipeWidth = 100;
         Random r = new Random();
-        int topHeight = r.nextInt(totalPipe);
+        int topHeight = r.nextInt(maxPipe - minPipe) + minPipe;
         int bottomHeight = totalPipe - topHeight;
 
         Rectangle topPipe = new Rectangle(SCREEN_WIDTH - pipeWidth, 0, pipeWidth, topHeight);
